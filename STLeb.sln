@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "Api\Api.csproj", "{76C3D791-03E6-4EDE-9487-70AE3BF6BFAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{76C3D791-03E6-4EDE-9487-70AE3BF6BFAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{B5629BA5-535C-4C54-81AE-E566EC9F9D5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{B5629BA5-535C-4C54-81AE-E566EC9F9D5C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{9653A552-C8CA-4F43-913D-7919651C4BE0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{1E9A0504-9731-4DC0-8B22-CA8C956B9733}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{9653A552-C8CA-4F43-913D-7919651C4BE0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +27,6 @@ Global
 		{9653A552-C8CA-4F43-913D-7919651C4BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9653A552-C8CA-4F43-913D-7919651C4BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9653A552-C8CA-4F43-913D-7919651C4BE0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E9A0504-9731-4DC0-8B22-CA8C956B9733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E9A0504-9731-4DC0-8B22-CA8C956B9733}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E9A0504-9731-4DC0-8B22-CA8C956B9733}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E9A0504-9731-4DC0-8B22-CA8C956B9733}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
