@@ -12,12 +12,13 @@ export class SearchProductsComponent implements OnInit {
   constructor() {}
   // Selects models
   genders: SelectModel[] = [
+    { value: '0', viewValue: 'All' },
     { value: '1', viewValue: 'Boys' },
     { value: '2', viewValue: 'Girls' },
-    { value: '3', viewValue: 'Both' },
   ];
 
   ages: SelectModel[] = [
+    { value: '0', viewValue: 'All' },
     { value: '1', viewValue: '0-1' },
     { value: '2', viewValue: '1-3' },
     { value: '3', viewValue: '3-7' },
@@ -26,11 +27,34 @@ export class SearchProductsComponent implements OnInit {
     { value: '6', viewValue: '13+' },
   ];
 
-  // Data Model
-  selectedGender = '1';
+  categories: SelectModel[] = [
+    { value: '0', viewValue: 'All' },
+    { value: '1', viewValue: 'Cars' },
+    { value: '2', viewValue: 'Dolls' },
+  ];
 
-  selectedAge = '4';
+  sortBy: SelectModel[] = [
+    { value: '1', viewValue: 'Price' },
+    { value: '2', viewValue: 'Gender' },
+    { value: '3', viewValue: 'Category' },
+    { value: '4', viewValue: 'Name' },
+  ];
+
+  direction: SelectModel[] = [
+    { value: '1', viewValue: 'Ascending' },
+    { value: '2', viewValue: 'Descending' },
+  ];
+
+  // Data Model
+  selectedGender = '0';
+  selectedAge = '0';
+  selectedCategory = '0';
+  textSearch = '';
+  selectedSortBy = '1';
+  selectedDirection = '1';
 
   ngOnInit(): void {}
-  onSubmit() {}
+  onControlChange() {
+    console.log(this.selectedGender);
+  }
 }

@@ -46,6 +46,7 @@ namespace Data
 
     public enum Category
     {
+        All = 0,
         Cars = 1,
         Dolls = 2
     }
