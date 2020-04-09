@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
 
 namespace Data
@@ -12,7 +9,7 @@ namespace Data
         public Context CreateDbContext(string[] args)
         {
             DbContextOptionsBuilder<Context> builder = new DbContextOptionsBuilder<Context>();
-            builder.UseLazyLoadingProxies().UseSqlite("Data Source=D:\\STLeb.db",
+            builder.UseLazyLoadingProxies().UseMySql("Server=10.8.0.1;User ID=STLebanon;Password=;Database=STLebanon",
             optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(Context).GetTypeInfo().Assembly.GetName().Name));
             return new Context(builder.Options);
         }
@@ -20,7 +17,7 @@ namespace Data
         public static Context GetContext(string connectionName)
         {
             DbContextOptionsBuilder<Context> builder = new DbContextOptionsBuilder<Context>();
-            builder.UseSqlite(connectionName,
+            builder.UseMySql(connectionName,
                 optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(Context).GetTypeInfo().Assembly.GetName().Name));
             return new Context(builder.Options);
         }

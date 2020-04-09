@@ -1,19 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Core.Logic;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Api
 {
@@ -33,7 +26,7 @@ namespace Api
         {
             services.AddControllers();
             services.AddDbContext<Context>(options =>
-            options.UseSqlite(Configuration.GetConnectionString("Context")));
+            options.UseMySql(Configuration.GetConnectionString("Context")));
             services.AddIdentity<ApiUser, IdentityRole>().AddEntityFrameworkStores<Context>();
             services.AddIdentityCore<ApiUser>(options =>
             {
@@ -55,7 +48,8 @@ namespace Api
 
             services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(Configuration["ConnectionStrings:Context"], ""));
 #if DEBUG
-            services.AddCors(options => {
+            services.AddCors(options =>
+            {
                 options.AddPolicy(AllowOrigin, builder => builder
                  .SetIsOriginAllowed((host) => true)
                  .AllowAnyMethod()

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core;
+﻿using Core;
 using Core.Logic;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -15,7 +11,7 @@ namespace Api.Controllers
     [ApiController]
     public class ProductsAdminController : ApiBaseController
     {
-        private IProductsAdminLogic _productsAdminLogic;
+        private readonly IProductsAdminLogic _productsAdminLogic;
 
         public ProductsAdminController(IProductsAdminLogic productsAdminLogic)
         {
@@ -30,7 +26,9 @@ namespace Api.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<string> GenerateMock() => await _productsAdminLogic.GenerateMock();
-
+        public async Task<string> GenerateMock()
+        {
+            return await _productsAdminLogic.GenerateMock();
+        }
     }
 }

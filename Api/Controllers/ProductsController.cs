@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core;
+﻿using Core;
 using Core.Logic;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -15,7 +11,7 @@ namespace Api.Controllers
     [ApiController]
     public class ProductsController : ApiBaseController
     {
-        private IProductsLogic _productsLogic;
+        private readonly IProductsLogic _productsLogic;
 
         public ProductsController(IProductsLogic productsLogic)
         {
@@ -24,6 +20,9 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<PaginatorResponse<ProductModel>> GetProducts([FromBody]ProductSearchModel searchParams) => await _productsLogic.GetProducts(searchParams);
+        public async Task<PaginatorResponse<ProductModel>> GetProducts([FromBody]ProductSearchModel searchParams)
+        {
+            return await _productsLogic.GetProducts(searchParams);
+        }
     }
 }

@@ -1,10 +1,7 @@
 ﻿using Core.Model;
 using Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.Logic
@@ -22,7 +19,7 @@ namespace Core.Logic
             PaginatorResponse<ProductModel> result = new PaginatorResponse<ProductModel>();
             using (_context)
             {
-                var query = _context.Products.AsQueryable();
+                IQueryable<Product> query = _context.Products.AsQueryable();
                 if (searchParams.Gender > 0 && searchParams.Gender < 3)
                 {
                     query = query.Where(x => x.Gender == (Gender)searchParams.Gender);
@@ -35,7 +32,7 @@ namespace Core.Logic
                 {
                     query = query.Where(x => x.Category == (Category)searchParams.Category);
                 }
-                if(!string.IsNullOrEmpty(searchParams.SearchText))
+                if (!string.IsNullOrEmpty(searchParams.SearchText))
                 {
                     query = query.Where(x => x.Name.Contains(searchParams.SearchText) || x.Description.Contains(searchParams.SearchText));
                 }

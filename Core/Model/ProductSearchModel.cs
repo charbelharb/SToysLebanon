@@ -1,9 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Model
+﻿namespace Core.Model
 {
     public class ProductSearchModel : PaginatorModel
     {
@@ -17,7 +12,7 @@ namespace Core.Model
 
         public int Direction { get; set; }
 
-        public string SearchText { get;set; }
+        public string SearchText { get; set; }
 
     }
 }
