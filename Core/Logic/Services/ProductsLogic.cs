@@ -17,9 +17,9 @@ namespace Core.Logic
         {
             _context = ContextFactory.GetContext(connectionString);
         }
-        public async Task<PaginatorResponseModel<ProductModel>> GetProducts(ProductSearchModel searchParams)
+        public async Task<PaginatorResponse<ProductModel>> GetProducts(ProductSearchModel searchParams)
         {
-            PaginatorResponseModel<ProductModel> result = new PaginatorResponseModel<ProductModel>();
+            PaginatorResponse<ProductModel> result = new PaginatorResponse<ProductModel>();
             using (_context)
             {
                 var query = _context.Products.AsQueryable();
@@ -39,11 +39,8 @@ namespace Core.Logic
                 {
                     query = query.Where(x => x.Name.Contains(searchParams.SearchText) || x.Description.Contains(searchParams.SearchText));
                 }
-                result.Total = await query.CountAsync();
-                if (searchParams.PageIndex > 0)
-                {
-                    query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);
-                }
+                result.PaginatorModel.Total = await query.CountAsync();
+                query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);
                 if (searchParams.SortBy == 1)
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
@@ -56,7 +53,7 @@ namespace Core.Logic
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
                 }
-                result.Data = await query.Select(x => new ProductModel()
+                result.PaginatorModel.Data = await query.Select(x => new ProductModel()
                 {
                     Age = x.Age,
                     Category = x.Category,
@@ -68,7 +65,6 @@ namespace Core.Logic
                     Price = x.Price,
                     Quantity = x.Quantity,
                     ResizedImagePath = x.ResizedImagePath
-
                 }).ToListAsync();
                 return result;
             }

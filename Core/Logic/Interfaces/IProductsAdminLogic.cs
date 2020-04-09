@@ -9,5 +9,7 @@ namespace Core.Logic
     public interface IProductsAdminLogic
     {
         Task<ApiResponseModel> AddProduct(ProductModel product);
+
+        Task<string> GenerateMock();
     }
 }

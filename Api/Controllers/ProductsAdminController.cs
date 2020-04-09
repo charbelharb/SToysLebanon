@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core;
 using Core.Logic;
 using Core.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +28,9 @@ namespace Api.Controllers
         {
             return await _productsAdminLogic.AddProduct(product);
         }
+
+        [AllowAnonymous]
+        public async Task<string> GenerateMock() => await _productsAdminLogic.GenerateMock();
 
     }
 }

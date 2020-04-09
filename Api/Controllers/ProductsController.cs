@@ -24,6 +24,6 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<PaginatorResponseModel<ProductModel>> GetProducts([FromBody]ProductSearchModel searchParams) => await _productsLogic.GetProducts(searchParams);
+        public async Task<PaginatorResponse<ProductModel>> GetProducts([FromBody]ProductSearchModel searchParams) => await _productsLogic.GetProducts(searchParams);
     }
 }

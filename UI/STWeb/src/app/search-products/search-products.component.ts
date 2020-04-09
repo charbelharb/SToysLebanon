@@ -4,6 +4,7 @@ import { GlobalconfigService, SelectModel } from '../globalconfig.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
+import { ProductsResponse } from '../products/products.component';
 
 @Component({
   selector: 'app-search-products',
@@ -12,8 +13,9 @@ import { Subject } from 'rxjs';
 })
 export class SearchProductsComponent implements OnInit {
   @ViewChild('prSearchForm', { static: false }) signupForm: NgForm;
-  @ViewChild(MatPaginator) paginatorTop: MatPaginator;
-  @ViewChild(MatPaginator) paginatorBottom: MatPaginator;
+  @ViewChild('paginatorTop', { static: false }) paginatorTop: MatPaginator;
+  @ViewChild('paginatorBottom', { static: false })
+  paginatorBottom: MatPaginator;
   constructor(private config: GlobalconfigService, private http: HttpClient) {}
   error = new Subject<string>();
   total = 0;
@@ -62,30 +64,20 @@ export class SearchProductsComponent implements OnInit {
   ngOnInit(): void {
     this.search();
   }
-  onpaginatorBottomChange(event: { pageIndex: number }) {
-    this.paginatorTop.pageIndex = event.pageIndex;
-    this.search();
-  }
-
-  onpaginatorTopChange(event: { pageIndex: number }) {
-    this.paginatorBottom.pageIndex = event.pageIndex;
-    this.search();
-  }
   search() {
     const postData = {
       pageIndex:
         this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0,
       pageSize: 15,
-      selectedGender: this.selectedGender,
-      selectedAge: this.selectedAge,
-      selectedCategory: this.selectedCategory,
-      textSearch: this.textSearch,
-      selectedSortBy: this.selectedSortBy,
-      selectedDirection: this.selectedDirection,
+      Gender: +this.selectedGender,
+      Age: +this.selectedAge,
+      Category: +this.selectedCategory,
+      SearchText: this.textSearch,
+      SortBy: +this.selectedSortBy,
+      Direction: +this.selectedDirection,
     };
-    console.log(postData);
     this.http
-      .post<{ name: string }>(
+      .post<{ paginatorModel: ProductsResponse }>(
         this.config.getApiBase() + 'Products/GetProducts',
         postData,
         {
@@ -94,7 +86,7 @@ export class SearchProductsComponent implements OnInit {
       )
       .subscribe(
         (responseData) => {
-          console.log(responseData);
+          this.total = responseData.body.paginatorModel.total;
         },
         (error) => {
           console.log(error.message);
