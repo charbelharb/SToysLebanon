@@ -31,7 +31,7 @@ namespace Data
     {
         Boy = 1,
         Girl = 2,
-        Unisex = 3
+        All = 3
     }
 
     public enum Age

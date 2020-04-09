@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SelectModel } from '../globalconfig.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-search-products',
@@ -9,6 +10,8 @@ import { SelectModel } from '../globalconfig.service';
 })
 export class SearchProductsComponent implements OnInit {
   @ViewChild('prSearchForm', { static: false }) signupForm: NgForm;
+  @ViewChild(MatPaginator) paginatorTop: MatPaginator;
+  @ViewChild(MatPaginator) paginatorBottom: MatPaginator;
   constructor() {}
   // Selects models
   genders: SelectModel[] = [
@@ -35,9 +38,7 @@ export class SearchProductsComponent implements OnInit {
 
   sortBy: SelectModel[] = [
     { value: '1', viewValue: 'Price' },
-    { value: '2', viewValue: 'Gender' },
-    { value: '3', viewValue: 'Category' },
-    { value: '4', viewValue: 'Name' },
+    { value: '2', viewValue: 'Name' },
   ];
 
   direction: SelectModel[] = [
@@ -53,8 +54,21 @@ export class SearchProductsComponent implements OnInit {
   selectedSortBy = '1';
   selectedDirection = '1';
 
+  total = 90;
   ngOnInit(): void {}
   onControlChange() {
-    console.log(this.selectedGender);
+    console.log(this.paginatorTop);
+  }
+
+  onpaginatorBottomChange(event: { pageIndex: number }) {
+    console.log(event.pageIndex);
+    this.paginatorTop.pageIndex = event.pageIndex;
+  }
+
+  onpaginatorTopChange(event: { pageIndex: number }) {
+    this.paginatorBottom.pageIndex = event.pageIndex;
+  }
+  search() {
+    console.log('ER');
   }
 }

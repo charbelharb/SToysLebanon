@@ -1,13 +1,13 @@
 <mat-card id="crdSearchProducts">
   <mat-card-header>
     <mat-card-title>
-      Products Search
+      Search
     </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <form class="prSearchForm" #prSearchForm="ngForm">
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Gender</mat-label>
             <mat-select
@@ -22,7 +22,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Age</mat-label>
             <mat-select
@@ -36,7 +36,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Category</mat-label>
             <mat-select
@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Keywords</mat-label>
             <input
@@ -67,7 +67,7 @@
             />
           </mat-form-field>
         </div>
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Order by</mat-label>
             <mat-select
@@ -81,7 +81,7 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-lg-4 col-md-6 col-xl-4 col-sm-12">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
           <mat-form-field>
             <mat-label>Direction</mat-label>
             <mat-select
@@ -97,5 +97,37 @@
         </div>
       </div>
     </form>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
+      <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
+      <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
+        <mat-paginator
+          [length]="total"
+          [pageSize]="15"
+          [hidePageSize]="true"
+          (page)="paginatorBottom.pageIndex = $event.pageIndex; search()"
+          #paginatorTop
+        >
+        </mat-paginator>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card style="margin-top: 1em;">
+  <mat-card-content>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
+      <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
+      <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
+        <mat-paginator
+          [length]="total"
+          [pageSize]="15"
+          [hidePageSize]="true"
+          (page)="paginatorTop.pageIndex = $event.pageIndex; search()"
+          #paginatorBottom
+        >
+        </mat-paginator>
+      </div>
+    </div>
   </mat-card-content>
 </mat-card>
