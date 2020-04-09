@@ -7,13 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Logic.Services
+namespace Core.Logic
 {
-    public class Products : IProducts
+    public class ProductsLogic : IProductsLogic
     {
         private readonly Context _context;
 
-        public Products(string connectionString, string productPath)
+        public ProductsLogic(string connectionString)
         {
             _context = ContextFactory.GetContext(connectionString);
         }
@@ -35,6 +35,11 @@ namespace Core.Logic.Services
                 {
                     query = query.Where(x => x.Category == (Category)searchParams.Category);
                 }
+                if(!string.IsNullOrEmpty(searchParams.SearchText))
+                {
+                    query = query.Where(x => x.Name.Contains(searchParams.SearchText) || x.Description.Contains(searchParams.SearchText));
+                }
+                result.Total = await query.CountAsync();
                 if (searchParams.PageIndex > 0)
                 {
                     query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);

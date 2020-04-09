@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Logic.Services
+namespace Core.Logic
 {
-    public class ProducstAdminLogic : IProductsAdminLogic
+    public class ProductsAdminLogic : IProductsAdminLogic
     {
         private readonly Context _context;
 
         private readonly string _product;
 
-        public ProducstAdminLogic(string connectionString, string productPath)
+        public ProductsAdminLogic(string connectionString, string productPath)
         {
             _context = ContextFactory.GetContext(connectionString);
             _product = productPath;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Logic
 {
-    public interface IProducts
+    public interface IProductsLogic
     {
         Task<PaginatorResponseModel<ProductModel>> GetProducts(ProductSearchModel searchParams);
     }

@@ -13,6 +13,7 @@ import { ProductsComponent } from './products/products.component';
 import { ProductdetailsComponent } from './productdetails/productdetails.component';
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     MatNativeDateModule,
     MaterialModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [
     {

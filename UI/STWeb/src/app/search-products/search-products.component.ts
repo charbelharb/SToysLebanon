@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SelectModel } from '../globalconfig.service';
+import { GlobalconfigService, SelectModel } from '../globalconfig.service';
 import { MatPaginator } from '@angular/material/paginator';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-search-products',
@@ -12,7 +14,10 @@ export class SearchProductsComponent implements OnInit {
   @ViewChild('prSearchForm', { static: false }) signupForm: NgForm;
   @ViewChild(MatPaginator) paginatorTop: MatPaginator;
   @ViewChild(MatPaginator) paginatorBottom: MatPaginator;
-  constructor() {}
+  constructor(private config: GlobalconfigService, private http: HttpClient) {}
+  error = new Subject<string>();
+  total = 0;
+
   // Selects models
   genders: SelectModel[] = [
     { value: '0', viewValue: 'All' },
@@ -54,21 +59,47 @@ export class SearchProductsComponent implements OnInit {
   selectedSortBy = '1';
   selectedDirection = '1';
 
-  total = 90;
-  ngOnInit(): void {}
-  onControlChange() {
-    console.log(this.paginatorTop);
+  ngOnInit(): void {
+    this.search();
   }
-
   onpaginatorBottomChange(event: { pageIndex: number }) {
-    console.log(event.pageIndex);
     this.paginatorTop.pageIndex = event.pageIndex;
+    this.search();
   }
 
   onpaginatorTopChange(event: { pageIndex: number }) {
     this.paginatorBottom.pageIndex = event.pageIndex;
+    this.search();
   }
   search() {
-    console.log('ER');
+    const postData = {
+      pageIndex:
+        this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0,
+      pageSize: 15,
+      selectedGender: this.selectedGender,
+      selectedAge: this.selectedAge,
+      selectedCategory: this.selectedCategory,
+      textSearch: this.textSearch,
+      selectedSortBy: this.selectedSortBy,
+      selectedDirection: this.selectedDirection,
+    };
+    console.log(postData);
+    this.http
+      .post<{ name: string }>(
+        this.config.getApiBase() + 'Products/GetProducts',
+        postData,
+        {
+          observe: 'response',
+        }
+      )
+      .subscribe(
+        (responseData) => {
+          console.log(responseData);
+        },
+        (error) => {
+          console.log(error.message);
+          this.error.next(error.message);
+        }
+      );
   }
 }

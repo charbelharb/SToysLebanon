@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Logic;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,7 +23,9 @@ namespace Api
         {
             Configuration = configuration;
         }
-
+#if DEBUG
+        private readonly string AllowOrigin = "AllowOrigin";
+#endif
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -47,6 +50,20 @@ namespace Api
                 .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddSignInManager<SignInManager<ApiUser>>()
                 .AddEntityFrameworkStores<Context>();
+
+            services.AddTransient<IProductsLogic>(x => new ProductsLogic(Configuration["ConnectionStrings:Context"]));
+
+            services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(Configuration["ConnectionStrings:Context"], ""));
+#if DEBUG
+            services.AddCors(options => {
+                options.AddPolicy(AllowOrigin, builder => builder
+                 .SetIsOriginAllowed((host) => true)
+                 .AllowAnyMethod()
+                 .AllowAnyHeader()
+                 .AllowAnyOrigin()
+                 );
+            });
+#endif
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,16 +74,20 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
             app.UseAuthentication();
+#if DEBUG
+            app.UseCors(AllowOrigin);
+#endif
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

@@ -13,8 +13,7 @@
             <mat-select
               [(ngModel)]="selectedGender"
               name="genderSelect"
-              (change)="onControlChange()"
-              (selectionChange)="onControlChange()"
+              (selectionChange)="search()"
             >
               <mat-option *ngFor="let gender of genders" [value]="gender.value">
                 {{ gender.viewValue }}
@@ -28,7 +27,7 @@
             <mat-select
               [(ngModel)]="selectedAge"
               name="ageSelect"
-              (selectionChange)="onControlChange()"
+              (selectionChange)="search()"
             >
               <mat-option *ngFor="let age of ages" [value]="age.value">
                 {{ age.viewValue }}
@@ -42,7 +41,7 @@
             <mat-select
               [(ngModel)]="selectedCategory"
               name="categorySelect"
-              (selectionChange)="onControlChange()"
+              (selectionChange)="search()"
             >
               <mat-option
                 *ngFor="let category of categories"
@@ -63,7 +62,7 @@
               placeholder="Ex. Car"
               [(ngModel)]="textSearch"
               name="IptKeyword"
-              (change)="onControlChange()"
+              (change)="search()"
             />
           </mat-form-field>
         </div>
@@ -73,7 +72,7 @@
             <mat-select
               [(ngModel)]="selectedSortBy"
               name="sortBySelect"
-              (selectionChange)="onControlChange()"
+              (selectionChange)="search()"
             >
               <mat-option *ngFor="let sby of sortBy" [value]="sby.value">
                 {{ sby.viewValue }}
@@ -87,7 +86,7 @@
             <mat-select
               [(ngModel)]="selectedDirection"
               name="directionSelect"
-              (selectionChange)="onControlChange()"
+              (selectionChange)="search()"
             >
               <mat-option *ngFor="let dir of direction" [value]="dir.value">
                 {{ dir.viewValue }}
@@ -97,11 +96,11 @@
         </div>
       </div>
     </form>
-    <div class="row">
+    <div class="row" *ngIf="total > 0">
       <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
-      <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
       <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
         <mat-paginator
+          class="paginator--centered"
           [length]="total"
           [pageSize]="15"
           [hidePageSize]="true"
@@ -110,24 +109,34 @@
         >
         </mat-paginator>
       </div>
-    </div>
-  </mat-card-content>
-</mat-card>
-<mat-card style="margin-top: 1em;">
-  <mat-card-content>
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
       <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
-      <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
-        <mat-paginator
-          [length]="total"
-          [pageSize]="15"
-          [hidePageSize]="true"
-          (page)="paginatorTop.pageIndex = $event.pageIndex; search()"
-          #paginatorBottom
-        >
-        </mat-paginator>
-      </div>
     </div>
   </mat-card-content>
 </mat-card>
+<div id="searchResult" style="margin-top: 1em;">
+  <div *ngIf="total > 0; else noResult">
+    <mat-card>
+      <mat-card-content>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
+          <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
+            <mat-paginator
+              class="paginator--centered"
+              [length]="total"
+              [pageSize]="15"
+              [hidePageSize]="true"
+              (page)="paginatorTop.pageIndex = $event.pageIndex; search()"
+              #paginatorBottom
+            >
+            </mat-paginator>
+          </div>
+          <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #noResult>
+  No Products Found
+</ng-template>
