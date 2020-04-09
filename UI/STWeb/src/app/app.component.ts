@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  contactUsMsg = 'Contact us for more info: 03/352788';
+  contactUsMsg = 'For more info: 03 352 788';
   bannerMsg = 'Welcome to our site!';
-  footerMessage = 'Copyright ' + new Date().getFullYear();
+  footerMessage = 'Copyright© ' + new Date().getFullYear();
 }

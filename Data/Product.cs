@@ -36,11 +36,12 @@ namespace Data
 
     public enum Age
     {
-        ZeroToThree = 1,
-        ThreeToSix = 2,
-        SixToNine = 3,
-        NinteToTwelve = 4,
-        TwelvePlus = 5
+        ZeroToOne = 1,
+        OneToThree = 2,
+        ThreeToSeven = 3,
+        SevenToTen = 4,
+        TenToThirteen = 5,
+        ThirteenPlus = 6
     }
 
     public enum Category

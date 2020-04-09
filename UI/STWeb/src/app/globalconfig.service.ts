@@ -8,3 +8,8 @@ export class GlobalconfigService {
   constructor() {}
   public getApiBase = () => this.apiBase;
 }
+
+export interface SelectModel {
+  value: string;
+  viewValue: string;
+}
