@@ -55,7 +55,7 @@ namespace Core.Logic
                     Description = x.Description,
                     Id = x.Id,
                     ImagePath = x.ImagePath,
-                    Name = x.ImagePath,
+                    Name = x.Name,
                     Price = x.Price,
                     Quantity = x.Quantity,
                     ResizedImagePath = x.ResizedImagePath,

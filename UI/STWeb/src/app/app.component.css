@@ -274,3 +274,8 @@ svg#clouds {
     visibility: hidden;
   }
 }
+footer {
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+}

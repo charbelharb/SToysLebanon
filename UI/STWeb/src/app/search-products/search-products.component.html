@@ -119,8 +119,10 @@
       <mat-card-content>
         <div class="row">
           <app-productdetails
+            style="margin-bottom: 1em;"
             *ngFor="let d of data"
             [element]="d"
+            class="col-lg-4 col-xl-4 col-md-6 col-xs-12"
           ></app-productdetails>
         </div>
         <div class="row">

@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { ProductsResponse } from '../products/products.component';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-search-products',
@@ -17,10 +18,15 @@ export class SearchProductsComponent implements OnInit {
   @ViewChild('paginatorTop', { static: false }) paginatorTop: MatPaginator;
   @ViewChild('paginatorBottom', { static: false })
   paginatorBottom: MatPaginator;
-  constructor(private config: GlobalconfigService, private http: HttpClient) {}
+  @BlockUI()
+  blockUI: NgBlockUI;
+  constructor(private config: GlobalconfigService, private http: HttpClient) {
+    this.bui = this.blockUI;
+  }
   error = new Subject<string>();
   total = 0;
   data: ProductModel[];
+  bui: NgBlockUI;
   // Selects models
   genders: SelectModel[] = [
     { value: '0', viewValue: 'All' },
@@ -66,6 +72,7 @@ export class SearchProductsComponent implements OnInit {
     this.search();
   }
   search() {
+    this.bui.start('Loading...');
     const postData = {
       pageIndex:
         this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0,
@@ -89,6 +96,7 @@ export class SearchProductsComponent implements OnInit {
         (responseData) => {
           this.total = responseData.body.paginatorModel.total;
           this.data = responseData.body.paginatorModel.data;
+          this.bui.stop();
         },
         (error) => {
           console.log(error.message);

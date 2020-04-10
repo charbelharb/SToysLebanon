@@ -12,3 +12,26 @@
   background-image: url("https://i.ibb.co/yy9fKDD/denisse-leon-Mq-U9j-Oorcn-I-unsplash.jpg");
   background-size: cover;
 }
+
+.outofstock {
+  opacity: 0.5;
+}
+
+.imgC {
+  position: relative;
+  text-align: center;
+  color: black;
+  font-size: 15pt;
+  font-family: inherit;
+}
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.price {
+  color: red;
+  margin-left: 1em;
+}
