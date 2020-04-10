@@ -67,6 +67,11 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             //app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -79,12 +84,6 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
-#if !DEBUG
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
-#endif
         }
     }
 }
