@@ -20,7 +20,7 @@ namespace Api.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<PaginatorResponse<ProductModel>> GetProducts([FromBody]ProductSearchModel searchParams)
+        public async Task<PaginatorResponse<ProductResponseModel>> GetProducts([FromBody]ProductSearchModel searchParams)
         {
             return await _productsLogic.GetProducts(searchParams);
         }

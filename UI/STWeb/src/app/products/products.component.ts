@@ -10,7 +10,16 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {}
 }
-export interface ProductModel {}
+export interface ProductModel {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  imagepath: string;
+  resizedimagepath: string;
+  gender: number;
+}
 export interface ProductsResponse {
   total: number;
   data: ProductModel[];

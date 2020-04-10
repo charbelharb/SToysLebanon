@@ -1,3 +1,4 @@
+import { ProductModel } from './../products/products.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { GlobalconfigService, SelectModel } from '../globalconfig.service';
@@ -19,7 +20,7 @@ export class SearchProductsComponent implements OnInit {
   constructor(private config: GlobalconfigService, private http: HttpClient) {}
   error = new Subject<string>();
   total = 0;
-
+  data: ProductModel[];
   // Selects models
   genders: SelectModel[] = [
     { value: '0', viewValue: 'All' },
@@ -87,6 +88,7 @@ export class SearchProductsComponent implements OnInit {
       .subscribe(
         (responseData) => {
           this.total = responseData.body.paginatorModel.total;
+          this.data = responseData.body.paginatorModel.data;
         },
         (error) => {
           console.log(error.message);

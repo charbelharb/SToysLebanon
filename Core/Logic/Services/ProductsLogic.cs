@@ -14,9 +14,9 @@ namespace Core.Logic
         {
             _context = ContextFactory.GetContext(connectionString);
         }
-        public async Task<PaginatorResponse<ProductModel>> GetProducts(ProductSearchModel searchParams)
+        public async Task<PaginatorResponse<ProductResponseModel>> GetProducts(ProductSearchModel searchParams)
         {
-            PaginatorResponse<ProductModel> result = new PaginatorResponse<ProductModel>();
+            PaginatorResponse<ProductResponseModel> result = new PaginatorResponse<ProductResponseModel>();
             using (_context)
             {
                 IQueryable<Product> query = _context.Products.AsQueryable();
@@ -50,18 +50,16 @@ namespace Core.Logic
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
                 }
-                result.PaginatorModel.Data = await query.Select(x => new ProductModel()
+                result.PaginatorModel.Data = await query.Select(x => new ProductResponseModel()
                 {
-                    Age = x.Age,
-                    Category = x.Category,
                     Description = x.Description,
-                    Gender = x.Gender,
                     Id = x.Id,
                     ImagePath = x.ImagePath,
                     Name = x.ImagePath,
                     Price = x.Price,
                     Quantity = x.Quantity,
-                    ResizedImagePath = x.ResizedImagePath
+                    ResizedImagePath = x.ResizedImagePath,
+                    Gender = x.Gender
                 }).ToListAsync();
                 return result;
             }

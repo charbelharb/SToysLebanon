@@ -9,7 +9,7 @@ namespace Data
         public Context CreateDbContext(string[] args)
         {
             DbContextOptionsBuilder<Context> builder = new DbContextOptionsBuilder<Context>();
-            builder.UseLazyLoadingProxies().UseMySql("Server=10.8.0.1;User ID=STLebanon;Password=;Database=STLebanon",
+            builder.UseLazyLoadingProxies().UseMySql("Server=127.0.0.1;User ID=STLebanon;Password=123;Database=STLebanon",
             optionsBuilder => optionsBuilder.MigrationsAssembly(typeof(Context).GetTypeInfo().Assembly.GetName().Name));
             return new Context(builder.Options);
         }
