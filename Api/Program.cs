@@ -15,7 +15,7 @@ namespace Api
             return Host.CreateDefaultBuilder(args)
 .ConfigureWebHostDefaults(webBuilder =>
 {
-    webBuilder.UseStartup<Startup>();
+    webBuilder.UseStartup<Startup>().UseUrls("http://0.0.0.0:5001/", "http://0.0.0.0:5000/");
 });
         }
     }
