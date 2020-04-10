@@ -24,5 +24,9 @@ namespace Api.Controllers
         {
             return await _productsLogic.GetProducts(searchParams);
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<string> Test() => await Task.Run(() => "OK");
     }
 }
