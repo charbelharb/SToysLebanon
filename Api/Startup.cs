@@ -74,6 +74,7 @@ namespace Api
 
             app.UseAuthorization();
             app.UseAuthentication();
+            app.UseHttpsRedirection();
 #if DEBUG
             app.UseCors(AllowOrigin);
 #endif

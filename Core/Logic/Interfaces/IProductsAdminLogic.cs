@@ -7,6 +7,8 @@ namespace Core.Logic
     {
         Task<ApiResponseModel> AddProduct(ProductModel product);
 
+#if DEBUG
         Task<string> GenerateMock();
+#endif
     }
 }
