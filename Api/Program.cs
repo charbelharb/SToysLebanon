@@ -15,7 +15,10 @@ namespace Api
             return Host.CreateDefaultBuilder(args)
 .ConfigureWebHostDefaults(webBuilder =>
 {
-    webBuilder.UseStartup<Startup>();
+    webBuilder.UseStartup<Startup>().UseKestrel(serverOptions =>
+    {
+        serverOptions.Limits.MaxConcurrentConnections = 100;
+    }); ;
 });
         }
     }

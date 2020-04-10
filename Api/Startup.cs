@@ -24,6 +24,11 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.ForwardedHeaders =
+                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            });
             services.AddControllers();
             services.AddDbContext<Context>(options =>
             options.UseMySql(Configuration.GetConnectionString("Context")));
@@ -74,7 +79,6 @@ namespace Api
             app.UseRouting();
             app.UseAuthorization();
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseCors(AllowOrigin);
             app.UseEndpoints(endpoints =>
             {
