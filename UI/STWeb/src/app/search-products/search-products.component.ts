@@ -99,6 +99,7 @@ export class SearchProductsComponent implements OnInit {
           this.bui.stop();
         },
         (error) => {
+          this.bui.stop();
           console.log(error.message);
           this.error.next(error.message);
         }
