@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class GlobalconfigService {
-  private apiBase = 'https://harbsoftware.com/api/';
+  private apiBase = 'http://localhost:5000/api/';
   constructor() {}
   public getApiBase = () => this.apiBase;
 }

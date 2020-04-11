@@ -1,45 +1,17 @@
 <mat-card class="product-details-card">
   <mat-card-header>
-    <div
-      mat-card-avatar
-      [ngClass]="
-        element.gender === 1
-          ? 'boys-header-image'
-          : element.gender === 2
-          ? 'girls-header-image'
-          : 'all-header-image'
-      "
-    ></div>
     <mat-card-title>{{ element.name }}</mat-card-title>
-    <mat-card-subtitle
-      ><div [ngSwitch]="element.gender">
-        <div *ngSwitchCase="0">
-          All
-        </div>
-        <div *ngSwitchCase="1">
-          Boys
-        </div>
-        <div *ngSwitchCase="2">
-          Girls
-        </div>
-      </div></mat-card-subtitle
-    >
+    <mat-card-subtitle>{{ element.subtitle }}</mat-card-subtitle>
   </mat-card-header>
   <div class="imgC">
     <img
       mat-card-image
-      src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      src="{{ element.imagepath }}"
       alt="Photo of a Shiba Inu"
       [ngClass]="{ outofstock: element.quantity === 0 }"
     />
     <div *ngIf="element.quantity === 0" class="centered">Out Of Stock</div>
   </div>
-
-  <mat-card-content>
-    <p>
-      {{ element.description }}
-    </p>
-  </mat-card-content>
   <mat-card-footer>
     <mat-card-title class="price"
       >{{ element.price | number: "." }} LBP

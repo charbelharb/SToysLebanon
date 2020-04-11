@@ -18,7 +18,7 @@ export interface ProductModel {
   quantity: number;
   imagepath: string;
   resizedimagepath: string;
-  gender: number;
+  subtitle: string;
 }
 export interface ProductsResponse {
   total: number;

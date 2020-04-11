@@ -4,15 +4,16 @@
     {
         public int Gender { get; set; }
 
-        public int Age { get; set; }
-
-        public int Category { get; set; }
+        public short Category { get; set; }
 
         public int SortBy { get; set; }
 
         public int Direction { get; set; }
 
         public string SearchText { get; set; }
+
+        public short Brand { get; set; }
+
 
     }
 }

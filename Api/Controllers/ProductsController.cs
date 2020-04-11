@@ -3,6 +3,7 @@ using Core.Logic;
 using Core.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Api.Controllers
@@ -27,6 +28,10 @@ namespace Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<string> Test() => await Task.Run(() => "OK");
+        public async Task<IList<SelectModel>> GetCategories() => await _productsLogic.GetCategories();
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IList<SelectModel>> GetBrands() => await _productsLogic.GetBrands();
     }
 }

@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { GlobalconfigService, SelectModel } from '../globalconfig.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { ProductsResponse } from '../products/products.component';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 
@@ -33,23 +33,8 @@ export class SearchProductsComponent implements OnInit {
     { value: '1', viewValue: 'Boys' },
     { value: '2', viewValue: 'Girls' },
   ];
-
-  ages: SelectModel[] = [
-    { value: '0', viewValue: 'All' },
-    { value: '1', viewValue: '0-1' },
-    { value: '2', viewValue: '1-3' },
-    { value: '3', viewValue: '3-7' },
-    { value: '4', viewValue: '7-10' },
-    { value: '5', viewValue: '10-13' },
-    { value: '6', viewValue: '13+' },
-  ];
-
-  categories: SelectModel[] = [
-    { value: '0', viewValue: 'All' },
-    { value: '1', viewValue: 'Cars' },
-    { value: '2', viewValue: 'Dolls' },
-  ];
-
+  categories: SelectModel[] = [{ value: '0', viewValue: 'All' }];
+  brands: SelectModel[] = [{ value: '0', viewValue: 'All' }];
   sortBy: SelectModel[] = [
     { value: '1', viewValue: 'Price' },
     { value: '2', viewValue: 'Name' },
@@ -62,23 +47,23 @@ export class SearchProductsComponent implements OnInit {
 
   // Data Model
   selectedGender = '0';
-  selectedAge = '0';
+  selectedBrand = '0';
   selectedCategory = '0';
   textSearch = '';
   selectedSortBy = '1';
   selectedDirection = '1';
 
   ngOnInit(): void {
-    this.search();
+    this.initPage();
   }
   search() {
     this.bui.start('Loading...');
     const postData = {
       pageIndex:
         this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0,
-      pageSize: 15,
+      pageSize: 12,
       Gender: +this.selectedGender,
-      Age: +this.selectedAge,
+      Brand: +this.selectedBrand,
       Category: +this.selectedCategory,
       SearchText: this.textSearch,
       SortBy: +this.selectedSortBy,
@@ -104,5 +89,19 @@ export class SearchProductsComponent implements OnInit {
           this.error.next(error.message);
         }
       );
+  }
+
+  initPage() {
+    const brandsRequest = this.http.get<SelectModel[]>(
+      this.config.getApiBase() + 'Products/GetBrands'
+    );
+    const categoriesRequest = this.http.get<SelectModel[]>(
+      this.config.getApiBase() + 'Products/GetCategories'
+    );
+    forkJoin([brandsRequest, categoriesRequest]).subscribe((results) => {
+      this.brands.push(...results[0]);
+      this.categories.push(...results[1]);
+      this.search();
+    });
   }
 }

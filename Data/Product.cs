@@ -1,4 +1,6 @@
-﻿namespace Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Data
 {
     public class Product
     {
@@ -6,7 +8,7 @@
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string Notes { get; set; }
 
         public double Price { get; set; }
 
@@ -18,32 +20,21 @@
 
         public Gender Gender { get; set; }
 
-        public Age Age { get; set; }
+        public virtual Category Category { get; set; }
 
-        public Category Category { get; set; }
+        public virtual Brand Brand { get; set; }
+
+        [ForeignKey("Category")]
+        public short CategoryId { get; set; }
+
+        [ForeignKey("Brand")]
+        public short BrandId { get; set; }
     }
 
     public enum Gender
     {
-        Boy = 1,
-        Girl = 2,
+        Boys = 1,
+        Girls = 2,
         All = 3
-    }
-
-    public enum Age
-    {
-        ZeroToOne = 1,
-        OneToThree = 2,
-        ThreeToSeven = 3,
-        SevenToTen = 4,
-        TenToThirteen = 5,
-        ThirteenPlus = 6
-    }
-
-    public enum Category
-    {
-        All = 0,
-        Cars = 1,
-        Dolls = 2
     }
 }

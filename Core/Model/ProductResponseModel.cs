@@ -8,7 +8,7 @@ namespace Core.Model
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string Notes { get; set; }
 
         public double Price { get; set; }
 
@@ -17,7 +17,5 @@ namespace Core.Model
         public string ImagePath { get; set; }
 
         public string ResizedImagePath { get; set; }
-
-        public Gender Gender { get; set; }
     }
 }

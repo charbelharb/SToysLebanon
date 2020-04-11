@@ -7,6 +7,10 @@ namespace Data
     {
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Brand> Brands { get; set; }
+
         public Context(DbContextOptions options) : base(options)
         {
 

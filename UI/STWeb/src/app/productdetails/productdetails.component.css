@@ -1,18 +1,3 @@
-.boys-header-image {
-  background-image: url("https://i.ibb.co/Sn9fnFx/eddie-kopp-3-O5-GPc-S3ju-Y-unsplash.jpg");
-  background-size: cover;
-}
-
-.girls-header-image {
-  background-image: url("https://i.ibb.co/7S8DsJx/tanaphong-toochinda-Gag-C07w-Vvck-unsplash.jpg");
-  background-size: cover;
-}
-
-.all-header-image {
-  background-image: url("https://i.ibb.co/yy9fKDD/denisse-leon-Mq-U9j-Oorcn-I-unsplash.jpg");
-  background-size: cover;
-}
-
 .outofstock {
   opacity: 0.5;
 }

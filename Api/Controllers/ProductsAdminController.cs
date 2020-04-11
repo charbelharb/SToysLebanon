@@ -24,12 +24,5 @@ namespace Api.Controllers
         {
             return await _productsAdminLogic.AddProduct(product);
         }
-#if DEBUG
-        [AllowAnonymous]
-        public async Task<string> GenerateMock()
-        {
-            return await _productsAdminLogic.GenerateMock();
-        }
-#endif
     }
 }
