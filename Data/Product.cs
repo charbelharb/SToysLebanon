@@ -33,8 +33,8 @@ namespace Data
 
     public enum Gender
     {
+        All = 0,
         Boys = 1,
         Girls = 2,
-        All = 3
     }
 }
