@@ -16,9 +16,10 @@ export interface ProductModel {
   description: string;
   price: number;
   quantity: number;
-  imagepath: string;
-  resizedimagepath: string;
+  imagePath: string;
+  resizedImagePath: string;
   subtitle: string;
+  brand: string;
 }
 export interface ProductsResponse {
   total: number;

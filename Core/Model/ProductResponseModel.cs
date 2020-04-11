@@ -17,5 +17,9 @@ namespace Core.Model
         public string ImagePath { get; set; }
 
         public string ResizedImagePath { get; set; }
+
+        public string Subtitle { get; set; }
+
+        public string Brand { get; set; }
     }
 }

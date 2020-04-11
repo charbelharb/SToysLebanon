@@ -20,3 +20,9 @@
   color: red;
   margin-left: 1em;
 }
+
+.brand {
+  color: #1976d2;
+  font-style: italic;
+  font-size: small;
+}

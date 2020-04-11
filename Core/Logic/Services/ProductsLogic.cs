@@ -18,7 +18,7 @@ namespace Core.Logic
 
         public async Task<IList<SelectModel>> GetBrands()
         {
-            return await _context.Brands.Select(x => new SelectModel() { Value = x.Id, ViewValue = x.Name}).ToListAsync();
+            return await _context.Brands.Select(x => new SelectModel() { Value = x.Id, ViewValue = x.Name }).ToListAsync();
         }
 
         public async Task<IList<SelectModel>> GetCategories()
@@ -38,9 +38,9 @@ namespace Core.Logic
                 }
                 if (!string.IsNullOrEmpty(searchParams.SearchText))
                 {
-                    query = query.Where(x => x.Name.Contains(searchParams.SearchText));
+                    query = query.Where(x => EF.Functions.Like(x.Name.ToLower(), "%" + searchParams.SearchText.ToLower() + "%"));
                 }
-                if(searchParams.Brand > 0)
+                if (searchParams.Brand > 0)
                 {
                     query = query.Where(x => x.BrandId == searchParams.Brand);
                 }
@@ -49,7 +49,6 @@ namespace Core.Logic
                     query = query.Where(x => x.CategoryId == searchParams.Category);
                 }
                 result.PaginatorModel.Total = await query.CountAsync();
-                query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);
                 if (searchParams.SortBy == 1)
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
@@ -62,6 +61,7 @@ namespace Core.Logic
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
                 }
+                query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);
                 result.PaginatorModel.Data = await query.Select(x => new ProductResponseModel()
                 {
                     Notes = x.Notes,
@@ -71,6 +71,8 @@ namespace Core.Logic
                     Price = x.Price,
                     Quantity = x.Quantity,
                     ResizedImagePath = x.ResizedImagePath,
+                    Subtitle = x.Category.Name + (string.IsNullOrEmpty(x.Notes) ? "" : " - " + x.Notes),
+                    Brand = x.Brand.Name
                 }).ToListAsync();
                 return result;
             }

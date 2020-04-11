@@ -56,11 +56,19 @@ export class SearchProductsComponent implements OnInit {
   ngOnInit(): void {
     this.initPage();
   }
-  search() {
+  search(paging: boolean = false) {
+    let pageIndex: number;
+    if (!paging && this.paginatorTop !== undefined) {
+      this.paginatorTop.firstPage();
+      this.paginatorBottom.firstPage();
+      pageIndex = 0;
+    } else {
+      pageIndex =
+        this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0;
+    }
     this.bui.start('Loading...');
     const postData = {
-      pageIndex:
-        this.paginatorTop !== undefined ? this.paginatorTop.pageIndex : 0,
+      pageIndex,
       pageSize: 12,
       Gender: +this.selectedGender,
       Brand: +this.selectedBrand,
