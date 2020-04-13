@@ -28,10 +28,16 @@ namespace Api.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IList<SelectModel>> GetCategories() => await _productsLogic.GetCategories();
+        public async Task<IList<SelectModel>> GetCategories()
+        {
+            return await _productsLogic.GetCategories();
+        }
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IList<SelectModel>> GetBrands() => await _productsLogic.GetBrands();
+        public async Task<IList<SelectModel>> GetBrands()
+        {
+            return await _productsLogic.GetBrands();
+        }
     }
 }

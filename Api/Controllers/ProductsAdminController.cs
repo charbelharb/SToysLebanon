@@ -1,7 +1,6 @@
 ﻿using Core;
 using Core.Logic;
 using Core.Model;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

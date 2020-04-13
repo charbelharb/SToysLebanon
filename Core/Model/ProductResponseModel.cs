@@ -1,6 +1,4 @@
-﻿using Data;
-
-namespace Core.Model
+﻿namespace Core.Model
 {
     public class ProductResponseModel
     {
