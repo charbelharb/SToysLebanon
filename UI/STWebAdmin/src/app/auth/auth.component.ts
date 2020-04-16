@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { STErrorStateMatcher } from './shared';
-import { FormControl, Validators } from '@angular/forms';
+import { STErrorStateMatcher, Helper } from '../shared';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { NgBlockUI, BlockUI } from 'ng-block-ui';
+import { AuthService, AuthResponseData } from './auth.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,6 +12,8 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
+  loginForm: FormGroup;
+  showAuthError = false;
   emailFormControl = new FormControl('', [
     Validators.required,
     Validators.email,
@@ -15,7 +21,49 @@ export class AuthComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   matcher = new STErrorStateMatcher();
 
-  constructor() {}
+  @BlockUI()
+  blockUI: NgBlockUI;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private helper: Helper
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.loginForm = new FormGroup({
+      emailFormControl: this.emailFormControl,
+      passwordFormControl: this.passwordFormControl,
+    });
+  }
+
+  reset() {
+    this.loginForm.reset(this.loginForm.value);
+  }
+
+  login() {
+    if (!this.loginForm.valid) {
+      return;
+    }
+    this.blockUI.start();
+    let authObs: Observable<any>;
+    authObs = this.authService.login(
+      this.emailFormControl.value,
+      this.passwordFormControl.value
+    );
+    authObs.subscribe(
+      () => {
+        this.blockUI.stop();
+        this.showAuthError = false;
+        this.router.navigate(['/home']);
+      },
+      (errorMessage) => {
+        this.blockUI.stop();
+        if (errorMessage !== 'Not Authorized') {
+          this.helper.openSnackBar(errorMessage, '');
+        } else {
+          this.showAuthError = true;
+        }
+      }
+    );
+  }
 }

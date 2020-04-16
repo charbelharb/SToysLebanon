@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,16 +36,20 @@ namespace Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> LogIn([FromForm]LoginModel login)
+        public async Task<IActionResult> LogIn([FromBody]LoginModel login)
         {
             IActionResult result = Unauthorized();
-            ApiUser apiUser = await _userManager.FindByNameAsync(login.Username);
+            if(!ModelState.IsValid)
+            {
+                return result;
+            }
+            ApiUser apiUser = await _userManager.FindByNameAsync(login.Email);
             if (apiUser != null)
             {
                 SignInResult signInResult = await _signInManager.CheckPasswordSignInAsync(apiUser, login.Password, false);
                 if (signInResult.Succeeded)
                 {
-                    return Ok(BuildJwtToken(apiUser.Id));
+                    return Ok(new AuthResponseModel() { Token = await BuildJwtToken(apiUser.Id), Email = login.Email, ExpiresIn = 3600 });
                 }
             }
             return result;
@@ -53,11 +58,11 @@ namespace Api.Controllers
         [AllowAnonymous]
         public async Task<ApiResponseModel> CreateDefaultUser()
         {
-            IdentityResult identityResult = await _userManager.CreateAsync(new ApiUser() { UserName = "admin", Email = "s@scorz.org" }, "admin");
+            IdentityResult identityResult = await _userManager.CreateAsync(new ApiUser() { UserName = "s@scorz.org", Email = "s@scorz.org" }, "admin");
             string result;
             if (identityResult.Succeeded)
             {
-                result = "Default User Created, Eureka!";
+                result = "Default Email Created, Eureka!";
             }
             else
             {

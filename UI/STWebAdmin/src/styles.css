@@ -11,3 +11,7 @@ body {
 .mat-raised-button {
   width: 100%;
 }
+simple-snack-bar span {
+  margin: auto;
+  text-align: center;
+}
