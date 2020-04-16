@@ -1,1 +1,16 @@
-<p>home works!</p>
+<mat-toolbar color="primary"
+  ><span>{{ AppName }}</span>
+
+  <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
+  <mat-menu #productsMenu="matMenu">
+    <button mat-menu-item>Edit</button>
+    <button mat-menu-item [matMenuTriggerFor]="productsSettingsMenu">
+      Settings
+    </button>
+  </mat-menu>
+
+  <mat-menu #productsSettingsMenu="matMenu">
+    <button mat-menu-item>Categories</button>
+    <button mat-menu-item>Brands</button>
+  </mat-menu>
+</mat-toolbar>

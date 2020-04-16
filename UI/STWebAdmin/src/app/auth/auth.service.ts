@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
-import { Observable, throwError, BehaviorSubject } from 'rxjs';
+import { throwError, BehaviorSubject } from 'rxjs';
 import { GlobalconfigService } from './../globalconfig.service';
 
 export interface AuthResponseData {
