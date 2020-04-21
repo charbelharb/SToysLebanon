@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject } from 'rxjs';
-import { GlobalconfigService } from './../globalconfig.service';
+import { GlobalconfigService } from '../shared/globalconfig.service';
 
 export interface AuthResponseData {
   token: string;

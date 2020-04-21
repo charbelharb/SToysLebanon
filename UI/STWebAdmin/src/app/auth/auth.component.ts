@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { STErrorStateMatcher, Helper } from '../shared';
+import { STErrorStateMatcher, Helper } from '../shared/shared';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { NgBlockUI, BlockUI } from 'ng-block-ui';
 import { AuthService, AuthResponseData } from './auth.service';
