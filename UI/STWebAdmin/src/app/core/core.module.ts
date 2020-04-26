@@ -3,13 +3,40 @@ import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { SharedModule } from './../shared/shared.module';
 import { RouterModule } from '@angular/router';
+import { ProductsComponent } from './products/products.component';
+import { BrandsComponent } from './brands/brands.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [
+    HomeComponent,
+    ProductsComponent,
+    BrandsComponent,
+    CategoriesComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: HomeComponent }]),
+    RouterModule.forChild([
+      {
+        path: '',
+        component: HomeComponent,
+        children: [
+          {
+            path: 'products',
+            component: ProductsComponent,
+          },
+          {
+            path: 'brands',
+            component: BrandsComponent,
+          },
+          {
+            path: 'categories',
+            component: CategoriesComponent,
+          },
+        ],
+      },
+    ]),
   ],
 })
 export class CoreModule {}

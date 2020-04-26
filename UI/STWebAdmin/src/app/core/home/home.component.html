@@ -1,16 +1,16 @@
 <mat-toolbar color="primary"
-  ><span>{{ AppName }}</span>
-
-  <button mat-button [matMenuTriggerFor]="productsMenu">Products</button>
-  <mat-menu #productsMenu="matMenu">
-    <button mat-menu-item>Edit</button>
-    <button mat-menu-item [matMenuTriggerFor]="productsSettingsMenu">
-      Settings
-    </button>
-  </mat-menu>
-
-  <mat-menu #productsSettingsMenu="matMenu">
-    <button mat-menu-item>Categories</button>
-    <button mat-menu-item>Brands</button>
-  </mat-menu>
+  ><span routerLink="/" style="cursor: pointer;">{{ AppName }}</span>
+  <button mat-icon-button>
+    <mat-icon (click)="sidenav.toggle()">menu</mat-icon>
+  </button>
+  <button routerLink="/products" mat-button>Products</button>
 </mat-toolbar>
+<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav>
+    <mat-nav-list> <button mat-button>Products</button> </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div style="height: 88vh;"></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
