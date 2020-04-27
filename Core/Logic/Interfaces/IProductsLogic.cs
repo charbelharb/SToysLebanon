@@ -6,7 +6,7 @@ namespace Core.Logic
 {
     public interface IProductsLogic
     {
-        Task<PaginatorResponse<ProductResponseModel>> GetProducts(ProductSearchModel searchParams);
+        Task<PaginatorResponse<ProductResponseModel>> GetProducts(ProductSearchModel searchParams, bool checkSize = true);
 
         Task<IList<SelectModel>> GetBrands();
 

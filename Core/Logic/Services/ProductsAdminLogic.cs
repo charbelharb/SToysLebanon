@@ -30,11 +30,11 @@ namespace Core.Logic
                 {
                     Notes = product.Notes,
                     Gender = product.Gender,
-                    ImagePath = "",
+                    ImagePath = product.ImagePath,
                     Name = product.Name,
                     Price = product.Price,
                     Quantity = product.Quantity,
-                    ResizedImagePath = ""
+                    ResizedImagePath = product.ResizedImagePath
                 });
             }
             catch (Exception ex)

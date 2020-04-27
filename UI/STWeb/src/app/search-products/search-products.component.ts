@@ -69,7 +69,7 @@ export class SearchProductsComponent implements OnInit {
     this.bui.start('Loading...');
     const postData = {
       pageIndex,
-      pageSize: 12,
+      pageSize: 6,
       Gender: +this.selectedGender,
       Brand: +this.selectedBrand,
       Category: +this.selectedCategory,

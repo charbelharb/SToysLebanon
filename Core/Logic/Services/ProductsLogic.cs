@@ -26,7 +26,7 @@ namespace Core.Logic
             return await _context.Categories.Select(x => new SelectModel() { Value = x.Id, ViewValue = x.Name }).ToListAsync();
         }
 
-        public async Task<PaginatorResponse<ProductResponseModel>> GetProducts(ProductSearchModel searchParams)
+        public async Task<PaginatorResponse<ProductResponseModel>> GetProducts(ProductSearchModel searchParams, bool checkSize = true)
         {
             PaginatorResponse<ProductResponseModel> result = new PaginatorResponse<ProductResponseModel>();
             using (_context)
@@ -60,6 +60,10 @@ namespace Core.Logic
                 else
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
+                }
+                if(searchParams.PageSize > 6 && checkSize)
+                {
+                    searchParams.PageSize = 6;
                 }
                 query = query.Skip(searchParams.PageIndex * searchParams.PageSize).Take(searchParams.PageSize);
                 result.PaginatorModel.Data = await query.Select(x => new ProductResponseModel()
