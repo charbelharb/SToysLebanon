@@ -1,0 +1,23 @@
+<mat-card class="product-details-card">
+  <mat-card-header>
+    <mat-card-title
+      >{{ element.name
+      }}<span class="brand"> {{ element.brand }}</span></mat-card-title
+    >
+    <mat-card-subtitle>{{ element.subtitle }}</mat-card-subtitle>
+  </mat-card-header>
+  <div class="imgC">
+    <img
+      mat-card-image
+      src="{{ element.imagePath }}"
+      alt="{{ element.name }}"
+      [ngClass]="{ outofstock: element.quantity === 0 }"
+    />
+    <div *ngIf="element.quantity === 0" class="centered">Out Of Stock</div>
+  </div>
+  <mat-card-footer>
+    <mat-card-title class="price"
+      >{{ element.price | number: "." }} LBP
+    </mat-card-title></mat-card-footer
+  >
+</mat-card>

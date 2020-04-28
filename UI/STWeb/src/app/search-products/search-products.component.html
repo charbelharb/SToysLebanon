@@ -1,0 +1,150 @@
+<mat-card id="crdSearchProducts">
+  <mat-card-header>
+    <mat-card-title>
+      Search
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="prSearchForm" #prSearchForm="ngForm">
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Gender</mat-label>
+            <mat-select
+              [(ngModel)]="selectedGender"
+              name="genderSelect"
+              (selectionChange)="search()"
+            >
+              <mat-option *ngFor="let gender of genders" [value]="gender.value">
+                {{ gender.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Category</mat-label>
+            <mat-select
+              [(ngModel)]="selectedCategory"
+              name="categorySelect"
+              (selectionChange)="search()"
+            >
+              <mat-option
+                *ngFor="let category of categories"
+                [value]="category.value"
+              >
+                {{ category.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Brands</mat-label>
+            <mat-select
+              [(ngModel)]="selectedBrand"
+              name="brandSelect"
+              (selectionChange)="search()"
+            >
+              <mat-option *ngFor="let brand of brands" [value]="brand.value">
+                {{ brand.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Keywords</mat-label>
+            <input
+              matInput
+              placeholder="Ex. Car"
+              [(ngModel)]="textSearch"
+              name="IptKeyword"
+              (change)="search()"
+            />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Order by</mat-label>
+            <mat-select
+              [(ngModel)]="selectedSortBy"
+              name="sortBySelect"
+              (selectionChange)="search()"
+            >
+              <mat-option *ngFor="let sby of sortBy" [value]="sby.value">
+                {{ sby.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12">
+          <mat-form-field>
+            <mat-label>Direction</mat-label>
+            <mat-select
+              [(ngModel)]="selectedDirection"
+              name="directionSelect"
+              (selectionChange)="search()"
+            >
+              <mat-option *ngFor="let dir of direction" [value]="dir.value">
+                {{ dir.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div class="row" *ngIf="total > 0">
+      <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
+      <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
+        <mat-paginator
+          class="paginator--centered"
+          [length]="total"
+          [pageSize]="12"
+          [hidePageSize]="true"
+          (page)="paginatorBottom.pageIndex = $event.pageIndex; search(true)"
+          #paginatorTop
+        >
+        </mat-paginator>
+      </div>
+      <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<div id="searchResult" style="margin-top: 1em;">
+  <div *ngIf="total > 0; else noResult">
+    <mat-card>
+      <mat-card-content>
+        <div class="row">
+          <app-productdetails
+            style="margin-bottom: 1em;"
+            *ngFor="let d of data"
+            [element]="d"
+            class="col-lg-4 col-xl-4 col-md-6 col-xs-12"
+          ></app-productdetails>
+        </div>
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-xl-4 col-sm-12"></div>
+          <div class="col-lg-4 col-md-5 col-xl-4 col-sm-12">
+            <mat-paginator
+              class="paginator--centered"
+              [length]="total"
+              [pageSize]="12"
+              [hidePageSize]="true"
+              (page)="paginatorTop.pageIndex = $event.pageIndex; search(true)"
+              #paginatorBottom
+            >
+            </mat-paginator>
+          </div>
+          <div class="col-lg-4 col-md-3 col-xl-4 col-sm-12"></div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #noResult>
+  No Products Found
+</ng-template>
