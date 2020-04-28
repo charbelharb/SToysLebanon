@@ -102,7 +102,7 @@
         <mat-paginator
           class="paginator--centered"
           [length]="total"
-          [pageSize]="12"
+          [pageSize]="6"
           [hidePageSize]="true"
           (page)="paginatorBottom.pageIndex = $event.pageIndex; search(true)"
           #paginatorTop
@@ -131,7 +131,7 @@
             <mat-paginator
               class="paginator--centered"
               [length]="total"
-              [pageSize]="12"
+              [pageSize]="6"
               [hidePageSize]="true"
               (page)="paginatorTop.pageIndex = $event.pageIndex; search(true)"
               #paginatorBottom
