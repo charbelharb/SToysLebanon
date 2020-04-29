@@ -11,7 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class ProductsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  displayedColumns: [
+  displayedColumns: string[] = [
     'Id',
     'Name',
     'Price',
@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
     'Notes',
     'Gender',
     'ImagePath',
-    'ResizedImagePath'
+    'ResizedImagePath',
   ];
   ProductsDataSource: MatTableDataSource<ProductModel>;
 
@@ -43,7 +43,7 @@ export class ProductsComponent implements OnInit {
   }
 
   populateTable() {
-    this.ProductsDataSource = new MatTableDataSource(this.data);
+    this.ProductsDataSource = new MatTableDataSource<ProductModel>(this.data);
     this.ProductsDataSource.paginator = this.paginator;
     this.ProductsDataSource.sort = this.sort;
   }
