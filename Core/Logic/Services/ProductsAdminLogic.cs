@@ -5,15 +5,12 @@ using System.Threading.Tasks;
 
 namespace Core.Logic
 {
-    public class ProductsAdminLogic : IProductsAdminLogic
+    public class ProductsAdminLogic : LogicBase, IProductsAdminLogic
     {
-        private readonly Context _context;
-
         private readonly string _product;
 
-        public ProductsAdminLogic(string connectionString, string productPath)
+        public ProductsAdminLogic(Context context, string productPath):base(context)
         {
-            _context = ContextFactory.GetContext(connectionString);
             _product = productPath;
         }
 

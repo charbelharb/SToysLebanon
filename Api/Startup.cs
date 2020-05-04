@@ -49,9 +49,9 @@ namespace Api
                 .AddSignInManager<SignInManager<ApiUser>>()
                 .AddEntityFrameworkStores<Context>();
 
-            services.AddTransient<IProductsLogic>(x => new ProductsLogic(Configuration["ConnectionStrings:Context"]));
+            services.AddTransient<IProductsLogic>(x => new ProductsLogic(GetContext()));
 
-            services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(Configuration["ConnectionStrings:Context"], ""));
+            services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(GetContext(), ""));
 
             services.AddCors(options =>
             {
@@ -85,5 +85,7 @@ namespace Api
                 endpoints.MapControllers();
             });
         }
+
+        private Context GetContext() => ContextFactory.GetContext(Configuration["ConnectionStrings:Context"]);
     }
 }

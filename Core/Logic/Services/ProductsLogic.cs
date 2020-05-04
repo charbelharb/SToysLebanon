@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Core.Logic
 {
-    public class ProductsLogic : IProductsLogic
+    public class ProductsLogic : LogicBase, IProductsLogic
     {
-        private readonly Context _context;
 
-        public ProductsLogic(string connectionString)
+        public ProductsLogic(Context context):base(context)
         {
-            _context = ContextFactory.GetContext(connectionString);
         }
 
         public async Task<IList<SelectModel>> GetBrands()
