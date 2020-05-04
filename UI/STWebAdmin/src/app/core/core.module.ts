@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ProductsComponent } from './products/products.component';
 import { BrandsComponent } from './brands/brands.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CategoriesComponent } from './categories/categories.component';
   imports: [
     CommonModule,
     SharedModule,
+    AgGridModule.withComponents([]),
     RouterModule.forChild([
       {
         path: '',
