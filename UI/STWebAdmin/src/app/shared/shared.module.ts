@@ -5,11 +5,12 @@ import { Helper, STErrorStateMatcher } from './shared';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MaterialModule } from '../material-module';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   exports: [MaterialModule],
   declarations: [],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, AgGridModule.withComponents([])],
   providers: [
     GlobalconfigService,
     Helper,
