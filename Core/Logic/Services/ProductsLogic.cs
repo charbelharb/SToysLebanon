@@ -47,13 +47,10 @@ namespace Core.Logic
                     query = query.Where(x => x.CategoryId == searchParams.Category);
                 }
                 result.PaginatorModel.Total = await query.CountAsync();
-                if (searchParams.SortBy == 1)
-                {
-                    query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
-                }
-                else if (searchParams.SortBy == 2)
+                if (searchParams.SortBy == 2)
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name);
+                    
                 }
                 else
                 {
