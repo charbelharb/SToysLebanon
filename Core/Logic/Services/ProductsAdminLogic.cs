@@ -7,11 +7,8 @@ namespace Core.Logic
 {
     public class ProductsAdminLogic : LogicBase, IProductsAdminLogic
     {
-        private readonly string _product;
-
-        public ProductsAdminLogic(Context context, string productPath):base(context)
+        public ProductsAdminLogic(Context context):base(context)
         {
-            _product = productPath;
         }
 
         public async Task<ApiResponseModel> AddProduct(ProductModel product)

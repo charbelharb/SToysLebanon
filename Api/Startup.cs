@@ -51,7 +51,7 @@ namespace Api
 
             services.AddTransient<IProductsLogic>(x => new ProductsLogic(GetContext()));
 
-            services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(GetContext(), ""));
+            services.AddTransient<IProductsAdminLogic>(x => new ProductsAdminLogic(GetContext()));
 
             services.AddCors(options =>
             {
