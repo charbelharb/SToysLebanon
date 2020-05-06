@@ -10,7 +10,7 @@ namespace Core.Logic
     public class ProductsLogic : LogicBase, IProductsLogic
     {
 
-        public ProductsLogic(Context context):base(context)
+        public ProductsLogic(Context context) : base(context)
         {
         }
 
@@ -50,13 +50,13 @@ namespace Core.Logic
                 if (searchParams.SortBy == 2)
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name);
-                    
+
                 }
                 else
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
                 }
-                if(searchParams.PageSize > 6 && checkSize)
+                if (searchParams.PageSize > 6 && checkSize)
                 {
                     searchParams.PageSize = 6;
                 }

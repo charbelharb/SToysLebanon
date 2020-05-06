@@ -2,6 +2,8 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 export class STErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -27,9 +29,16 @@ export interface SelectModel {
 })
 export class Helper {
   constructor(private snackBar: MatSnackBar) {}
-  openSnackBar(message: string, action: string) {
+  public openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
     });
   }
+
+  public handleError = (errorRes: HttpErrorResponse) => {
+    if (errorRes.status === 401) {
+      return throwError('Not Authorized');
+    }
+    return throwError('Error');
+  };
 }

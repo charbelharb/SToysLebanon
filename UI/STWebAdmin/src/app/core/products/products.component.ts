@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -7,7 +9,21 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./products.component.scss'],
 })
 export class ProductsComponent implements OnInit {
-  public rowData: ProductModel[] = [
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  displayedColumns: string[] = [
+    'Id',
+    'Name',
+    'Price',
+    'Notes',
+    'Quantity',
+    'Gender',
+    'ImagePath',
+    'ResizedImagePath',
+  ];
+  ProductsDataSource: MatTableDataSource<ProductModel>;
+
+  public data: ProductModel[] = [
     {
       Id: 1,
       Name: 'Test',
@@ -19,23 +35,17 @@ export class ProductsComponent implements OnInit {
       Gender: 'Male',
     },
   ];
-
-  columnDefs = [
-    { headerName: 'Id', field: 'Id' },
-    { headerName: 'Name', field: 'Name', sortable: true, filter: true },
-    { headerName: 'Price', field: 'Price', sortable: true, filter: true },
-    { headerName: 'Quantity', field: 'Quantity', sortable: true },
-    { headerName: 'Notes', field: 'Notes' },
-    { headerName: 'Gender', field: 'Gender', filter: true },
-  ];
-
   constructor() {}
 
   ngOnInit(): void {
     this.populateTable();
   }
 
-  populateTable() {}
+  populateTable() {
+    this.ProductsDataSource = new MatTableDataSource<ProductModel>(this.data);
+    this.ProductsDataSource.paginator = this.paginator;
+    this.ProductsDataSource.sort = this.sort;
+  }
 }
 interface ProductModel {
   Id: number;

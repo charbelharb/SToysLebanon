@@ -86,6 +86,9 @@ namespace Api
             });
         }
 
-        private Context GetContext() => ContextFactory.GetContext(Configuration["ConnectionStrings:Context"]);
+        private Context GetContext()
+        {
+            return ContextFactory.GetContext(Configuration["ConnectionStrings:Context"]);
+        }
     }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Api.Integration.Tests
@@ -11,14 +8,14 @@ namespace Api.Integration.Tests
         [Fact]
         public async Task Get_All_Categories()
         {
-            var response = await _client.GetAsync("/api/Products/GetCategories");
+            System.Net.Http.HttpResponseMessage response = await _client.GetAsync("/api/Products/GetCategories");
             Assert.True(response.IsSuccessStatusCode);
         }
 
         [Fact]
         public async Task Get_All_Brands()
         {
-            var response = await _client.GetAsync("/api/Products/GetBrands");
+            System.Net.Http.HttpResponseMessage response = await _client.GetAsync("/api/Products/GetBrands");
             Assert.True(response.IsSuccessStatusCode);
         }
     }
