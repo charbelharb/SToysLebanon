@@ -33,5 +33,17 @@ namespace Api.Integration.Tests
             Assert.NotNull(responseModel.Token);
             Assert.True(response.IsSuccessStatusCode);
         }
+
+        protected async Task Authorize()
+        {
+            HttpResponseMessage response = await _client.PostAsJsonAsync("/api/Auth/LogIn", new LoginModel()
+            {
+                Email = "s@scorz.org",
+                Password = "admin"
+            });
+            string content = await response.Content.ReadAsStringAsync();
+            AuthResponseModel responseModel = JsonConvert.DeserializeObject<AuthResponseModel>(content);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", responseModel.Token);
+        }
     }
 }
