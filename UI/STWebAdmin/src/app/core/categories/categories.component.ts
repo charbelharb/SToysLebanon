@@ -35,6 +35,7 @@ export class CategoriesComponent implements OnInit {
         catchError(this.helper.handleError),
         tap((resData) => {
           this.data = resData;
+          console.log(resData)
           this.CategoriesDataSource = new MatTableDataSource<CategoriesModel>(
             this.data
           );

@@ -25,10 +25,10 @@ namespace Data
         public virtual Brand Brand { get; set; }
 
         [ForeignKey("Category")]
-        public short CategoryId { get; set; }
+        public short? CategoryId { get; set; }
 
         [ForeignKey("Brand")]
-        public short BrandId { get; set; }
+        public short? BrandId { get; set; }
     }
 
     public enum Gender
