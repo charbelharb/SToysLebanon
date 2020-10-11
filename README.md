@@ -1,3 +1,3 @@
 # SToysLebanon
 
-Current Website page insights: 78
+Current Website page insights: 82

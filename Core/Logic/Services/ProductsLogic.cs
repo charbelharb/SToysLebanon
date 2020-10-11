@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 
 namespace Core.Logic
 {
-    public class ProductsLogic : IProductsLogic
+    public class ProductsLogic : LogicBase, IProductsLogic
     {
-        private readonly Context _context;
 
-        public ProductsLogic(string connectionString)
+        public ProductsLogic(Context context) : base(context)
         {
-            _context = ContextFactory.GetContext(connectionString);
         }
 
         public async Task<IList<SelectModel>> GetBrands()
@@ -49,19 +47,16 @@ namespace Core.Logic
                     query = query.Where(x => x.CategoryId == searchParams.Category);
                 }
                 result.PaginatorModel.Total = await query.CountAsync();
-                if (searchParams.SortBy == 1)
-                {
-                    query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
-                }
-                else if (searchParams.SortBy == 2)
+                if (searchParams.SortBy == 2)
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Name) : query.OrderByDescending(x => x.Name);
+
                 }
                 else
                 {
                     query = searchParams.Direction == 1 ? query.OrderBy(x => x.Price) : query.OrderByDescending(x => x.Price);
                 }
-                if(searchParams.PageSize > 6 && checkSize)
+                if (searchParams.PageSize > 6 && checkSize)
                 {
                     searchParams.PageSize = 6;
                 }

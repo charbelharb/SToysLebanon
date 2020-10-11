@@ -39,7 +39,7 @@ namespace Api.Controllers
         public async Task<IActionResult> LogIn([FromBody]LoginModel login)
         {
             IActionResult result = Unauthorized();
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return result;
             }

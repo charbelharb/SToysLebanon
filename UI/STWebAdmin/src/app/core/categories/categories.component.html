@@ -1,1 +1,26 @@
-<p>categories works!</p>
+<div class="row">
+  <div class="col-lg-6 col-xs-12 col-md-6 col-6">
+    <div class="card">
+      <div class="card-header">
+        Categories
+      </div>
+      <div class="card-content">
+        <mat-card>
+          <table mat-table [dataSource]="CategoriesDataSource" matSort>
+            <ng-container matColumnDef="Id">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+              <td mat-cell *matCellDef="let row">{{ row.Id }}</td>
+            </ng-container>
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+              <td mat-cell *matCellDef="let row">{{ row.Name }}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
